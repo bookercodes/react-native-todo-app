@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-export default (Footer = ({ filter, onFilter, count, onClearComplete }) => (
+export default ({ filter, onFilter, count, onClearComplete }) => (
   <View style={styleSheet.container}>
     <Text>{count} Count</Text>
     <View style={styleSheet.filters}>
@@ -19,7 +19,7 @@ export default (Footer = ({ filter, onFilter, count, onClearComplete }) => (
       <TouchableOpacity
         style={[
           styleSheet.filter,
-          filter === 'COMPLETED' && styleSheet.selected,
+          filter === 'COMPLETED' && styleSheet.selected
         ]}
         onPress={() => onFilter('COMPLETED')}
       >
@@ -30,25 +30,25 @@ export default (Footer = ({ filter, onFilter, count, onClearComplete }) => (
       <Text>Clear completed</Text>
     </TouchableOpacity>
   </View>
-))
+)
 
 const styleSheet = StyleSheet.create({
   container: {
     padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   filters: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   filter: {
     padding: 8,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: 'transparent'
   },
   selected: {
-    borderColor: 'rgba(175, 47, 47, .2)',
-  },
+    borderColor: 'rgba(175, 47, 47, .2)'
+  }
 })

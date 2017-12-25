@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
+  TextInput
 } from 'react-native'
 
 const Header = ({ value, onChange, onAddItem, onToggleAllComplete }) => (
@@ -30,16 +30,16 @@ const headerStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#ececec',
+    backgroundColor: '#ececec'
   },
   input: {
     flex: 1,
     marginLeft: 16,
-    height: 50,
+    height: 50
   },
   toggleIcon: {
     fontSize: 30,
-    color: '#CCCCCC',
-  },
+    color: '#CCCCCC'
+  }
 })
 export default Header

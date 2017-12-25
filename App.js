@@ -7,9 +7,8 @@ import {
   ListView,
   Keyboard,
   StyleSheet,
-  Text,
   View,
-  ActivityIndicator,
+  ActivityIndicator
 } from 'react-native'
 
 const filterItems = (filter, items) => {
@@ -19,8 +18,9 @@ const filterItems = (filter, items) => {
     if (filter === 'ACTIVE') return !item.complete
   })
 }
+
 export default class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
     this.state = {
@@ -29,7 +29,7 @@ export default class App extends React.Component {
       filter: 'ALL',
       value: '',
       items: [],
-      dataSource: ds.cloneWithRows([]),
+      dataSource: ds.cloneWithRows([])
     }
     this.handleAddItem = this.handleAddItem.bind(this)
     this.handleToggleAllComplete = this.handleToggleAllComplete.bind(this)
@@ -41,7 +41,7 @@ export default class App extends React.Component {
     this.handleUpdateText = this.handleUpdateText.bind(this)
     this.handleToggleEditing = this.handleToggleEditing.bind(this)
   }
-  componentWillMount() {
+  componentWillMount () {
     AsyncStorage.getItem('items').then(json => {
       try {
         const items = JSON.parse(json)
@@ -51,79 +51,79 @@ export default class App extends React.Component {
       }
     })
   }
-  handleClearComplete() {
+  handleClearComplete () {
     const newItems = filterItems('ACTIVE', this.state.items)
     this.setSource(newItems, filterItems(this.state.filter, newItems))
   }
-  handleFilter(filter) {
+  handleFilter (filter) {
     this.setSource(this.state.items, filterItems(filter, this.state.items), {
-      filter,
+      filter
     })
   }
-  handleUpdateText(key, text) {
+  handleUpdateText (key, text) {
     const newItems = this.state.items.map(item => {
       if (item.key !== key) return item
       return {
         ...item,
-        text,
+        text
       }
     })
     this.setSource(newItems, filterItems(this.state.filter, newItems))
   }
-  handleToggleEditing(key, editing) {
+  handleToggleEditing (key, editing) {
     const newItems = this.state.items.map(item => {
       if (item.key !== key) return item
       return {
         ...item,
-        editing,
+        editing
       }
     })
     this.setSource(newItems, filterItems(this.state.filter, newItems))
   }
-  handleToggleComplete(key, complete) {
+  handleToggleComplete (key, complete) {
     const newItems = this.state.items.map(item => {
       if (item.key !== key) return item
       return {
         ...item,
-        complete,
+        complete
       }
     })
     this.setSource(newItems, filterItems(this.state.filter, newItems))
   }
-  handleRemoveItem(key) {
+  handleRemoveItem (key) {
     const newItems = this.state.items.filter(item => item.key !== key)
     this.setSource(newItems, filterItems(this.state.filter, newItems))
   }
-  setSource(items, itemsDataSoure, otherState = {}) {
+  setSource (items, itemsDataSoure, otherState = {}) {
     this.setState({
       items,
       dataSource: this.state.dataSource.cloneWithRows(itemsDataSoure),
-      ...otherState,
+      ...otherState
     })
     AsyncStorage.setItem('items', JSON.stringify(items))
   }
-  handleToggleAllComplete() {
+  handleToggleAllComplete () {
     const complete = !this.state.allComplete
     const newItems = this.state.items.map(item => ({
       ...item,
-      complete,
+      complete
     }))
     this.setSource(newItems, filterItems(this.state.filter, newItems), {
-      allComplete: complete,
+      allComplete: complete
     })
     console.table(newItems)
   }
-  handleAddItem() {
+  handleAddItem () {
     if (!this.state.value) return
     const newItems = [
       ...this.state.items,
-      { key: Date.now(), text: this.state.value, complete: false },
+      { key: Date.now(), text: this.state.value, complete: false }
     ]
     this.setSource(newItems, filterItems(this.state.filter, newItems), {
-      value: '',
+      value: ''
     })
   }
-  render() {
+  render () {
     return (
       <View style={stylesheet.container}>
         <Header
@@ -185,16 +185,16 @@ const stylesheet = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,.2)',
+    backgroundColor: 'rgba(0,0,0,.2)'
   },
   list: {},
   seperator: {
     borderWidth: 1,
-    borderColor: '#f5f5f5',
+    borderColor: '#f5f5f5'
   },
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 30
   },
-  content: { flex: 1 },
+  content: { flex: 1 }
 })
